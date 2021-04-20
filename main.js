@@ -9,39 +9,36 @@ form.addEventListener('submit', function(event) {
     if(document.getElementById("keyword").value == "Blusa"){
         const idInput = elements.id;
         const todoInput = elements.todo;
-        const todoState = elements.state;
         
         if(todoInput && !idInput.value) { 
             const todo = save(todoInput.value);
-            render(todo.id, todo.text, todo.state);
+            render(todo.id, todo.text);
         } else {
-            update(idInput.value, todoInput.value, todoState.checked);
+            update(idInput.value, todoInput.value);
             loadItems();
         }
         target.reset();
     }else if(document.getElementById("keyword").value == "Lego"){
         const idInput = elements.id;
         const todoInput = elements.todo;
-        const todoState = elements.state;
         
         if(todoInput && !idInput.value) { 
             const todo = save(todoInput.value);
-            render(todo.id, todo.text, todo.state);
+            render(todo.id, todo.text);
         } else {
-            update(idInput.value, todoInput.value, todoState.checked);
+            update(idInput.value, todoInput.value);
             loadItems();
         }
         target.reset();
     }else if(document.getElementById("keyword").value == "Carrinho de brinquedo"){
         const idInput = elements.id;
         const todoInput = elements.todo;
-        const todoState = elements.state;
         
         if(todoInput && !idInput.value) { 
             const todo = save(todoInput.value);
-            render(todo.id, todo.text, todo.state);
+            render(todo.id, todo.text);
         } else {
-            update(idInput.value, todoInput.value, todoState.checked);
+            update(idInput.value, todoInput.value);
             loadItems();
         }
         target.reset();
@@ -52,22 +49,21 @@ form.addEventListener('submit', function(event) {
         
         if(todoInput && !idInput.value) { 
             const todo = save(todoInput.value);
-            render(todo.id, todo.text, todo.state);
+            render(todo.id, todo.text);
         } else {
-            update(idInput.value, todoInput.value, todoState.checked);
+            update(idInput.value, todoInput.value);
             loadItems();
         }
         target.reset();
     }else if(document.getElementById("keyword").value == "Lapis"){
         const idInput = elements.id;
         const todoInput = elements.todo;
-        const todoState = elements.state;
         
         if(todoInput && !idInput.value) { 
             const todo = save(todoInput.value);
-            render(todo.id, todo.text, todo.state);
+            render(todo.id, todo.text);
         } else {
-            update(idInput.value, todoInput.value, todoState.checked);
+            update(idInput.value, todoInput.value);
             loadItems();
         }
         target.reset();
@@ -88,11 +84,11 @@ function getById(id) {
     if(todo) return todo;
 }
 
-function save(text, state = false) {
+function save(text) {
     
     const todo = {
         id: 1,
-        text, state
+        text
     };
 
     const list = getAllTodos();
@@ -109,12 +105,12 @@ function deleteItem(id) {
     localStorage.setItem('todo-list', JSON.stringify(list));
 }
 
-function update(id, text, state) {
+function update(id, text) {
     const list = getAllTodos();
     const index = list.findIndex((todo) => todo.id == id);
 
     if(index != -1) {
-        list[index] = {id, text, state};
+        list[index] = {id, text};
     }
 
     localStorage.setItem('todo-list', JSON.stringify(list));
@@ -129,18 +125,13 @@ function todoChecked(event) {
     event.target.checked;
 }
 
-function render(id, text, state = false) {
+function render(id, text) {
     const list = document.getElementsByClassName('list-group').item(0);
 
     if(list) {
         const li = document.createElement('li');
         li.classList.add('list-group-item');
         li.dataset.id = id;
-
-        const input = document.createElement('input');
-        input.type = 'checkbox';
-        input.checked = state;
-        input.addEventListener('click', todoChecked)
 
         const buttonDel = document.createElement('button');
         buttonDel.name = 'id';
@@ -153,35 +144,35 @@ function render(id, text, state = false) {
 
         if(text == "Blusa"){
             dinheiro = ": R$ 10,00";
-            li.appendChild(input);
+
             li.append(text + dinheiro); 
             li.appendChild(buttonDel);
     
             list.appendChild(li);
         }else if(text == "Lego"){
             dinheiro = ": R$ 11,00";
-            li.appendChild(input);
+
             li.append(text + dinheiro); 
             li.appendChild(buttonDel);
     
             list.appendChild(li);
         }else if(text == "Carrinho de brinquedo"){
             dinheiro = ": R$ 12,00";
-            li.appendChild(input);
+
             li.append(text + dinheiro); 
             li.appendChild(buttonDel);
     
             list.appendChild(li);
         }else if(text == "Ovo de páscoa"){
             dinheiro = ": R$ 13,00";
-            li.appendChild(input);
+
             li.append(text + dinheiro); 
             li.appendChild(buttonDel);
     
             list.appendChild(li);
         }else if(text == "Lapis"){
             dinheiro = ": R$ 14,00";
-            li.appendChild(input);
+
             li.append(text + dinheiro); 
             li.appendChild(buttonDel);
     
@@ -200,7 +191,7 @@ function loadItems() {
     const list = document.getElementsByClassName('list-group').item(0);
     list.innerHTML = '';
     getAllTodos().forEach((todo) => {
-        render(todo.id, todo.text, todo.state);
+        render(todo.id, todo.text);
     });
 } 
 
